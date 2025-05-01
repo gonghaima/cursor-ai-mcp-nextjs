@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Resend } from 'resend';
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,6 +20,29 @@ export async function POST(request: NextRequest) {
     
     // In a real implementation, you would add email to your database
     console.log(`Waitlist signup: ${email}`);
+    
+    // Send email to ymail inbox using Resend
+    const resendApiKey = process.env.RESEND_API_KEY;
+    const receiverEmail = process.env.RESEND_RECEIVER_EMAIL;
+    if (!resendApiKey || !receiverEmail) {
+      return NextResponse.json(
+        { success: false, message: "Server email configuration error" },
+        { status: 500 }
+      );
+    }
+    const resend = new Resend(resendApiKey);
+    const { error: resendError } = await resend.emails.send({
+      from: 'Levercast Waitlist <onboarding@resend.dev>',
+      to: receiverEmail,
+      subject: 'New Waitlist Signup',
+      html: `<p>New waitlist signup: <strong>${email}</strong></p>`
+    });
+    if (resendError) {
+      return NextResponse.json(
+        { success: false, message: "Failed to send notification email" },
+        { status: 500 }
+      );
+    }
     
     return NextResponse.json(
       { 
