@@ -8,7 +8,7 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ text: string; isError: boolean } | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, formLocation: 'hero' | 'bottom') => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     setMessage(null);
@@ -30,7 +30,7 @@ export default function Home() {
       } else {
         setMessage({ text: data.message || 'Something went wrong', isError: true });
       }
-    } catch (error) {
+    } catch {
       setMessage({ text: 'Failed to submit. Please try again.', isError: true });
     } finally {
       setIsSubmitting(false);
@@ -74,7 +74,7 @@ export default function Home() {
               <p className="text-gray-600 mb-4">
                 Be the first to know when we launch. Get early access and exclusive benefits.
               </p>
-              <form className="space-y-4" onSubmit={(e) => handleSubmit(e, 'hero')}>
+              <form className="space-y-4" onSubmit={handleSubmit}>
                 <div>
                   <input
                     type="email"
@@ -184,15 +184,15 @@ export default function Home() {
             <div className="bg-white p-6 rounded-xl shadow-md">
               <h3 className="text-xl font-bold mb-4">Entrepreneurs & Business Owners</h3>
               <p className="text-gray-600">
-                "As a busy entrepreneur, I need a quick way to publish across platforms. Levercast
-                gives me back hours each week while improving my content quality."
+                &ldquo;As a busy entrepreneur, I need a quick way to publish across platforms. Levercast
+                gives me back hours each week while improving my content quality.&rdquo;
               </p>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-md">
               <h3 className="text-xl font-bold mb-4">Content Creators & Marketers</h3>
               <p className="text-gray-600">
-                "Creating platform-specific content used to be tedious. With Levercast, I can
-                transform my ideas into tailored content for each channel in seconds."
+                &ldquo;Creating platform-specific content used to be tedious. With Levercast, I can
+                transform my ideas into tailored content for each channel in seconds.&rdquo;
               </p>
             </div>
           </div>
@@ -207,7 +207,7 @@ export default function Home() {
         <p className="text-xl text-gray-700 mb-8 max-w-3xl mx-auto">
           Join our waitlist today and be among the first to experience the future of multi-platform content publishing.
         </p>
-        <form className="max-w-md mx-auto flex flex-col sm:flex-row gap-4" onSubmit={(e) => handleSubmit(e, 'bottom')}>
+        <form className="max-w-md mx-auto flex flex-col sm:flex-row gap-4" onSubmit={handleSubmit}>
           <input
             type="email"
             placeholder="Your email address"

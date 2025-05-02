@@ -17,6 +17,11 @@ Software Architect = Software Specification Doc
 ```
 On the landing page, l'd like to connect the CTA and the ymail inbox so that it gets sent to a certain email address. We're going to use Resend in order to do this, and I've already put the API key for Resend into the env file. Can you go and search the web, get the best practice for integrating these two, and let's go ahead and do that. @web
 ```
-
+### env
 RESEND_API_KEY=your_resend_api_key
 RESEND_RECEIVER_EMAIL=your-inbox@ymail.com
+
+### Check build
+```
+how would I check if this nextjs project is ready to build
+```
